@@ -1,0 +1,58 @@
+{% if search.performed? %}
+
+{% include 'breadcrumbs' %}
+<div class="category">
+    <div class="category-title">Вы искали "<span class="color">{{search.query | escape}}</span>"</div>
+    <div class="wrapper">
+        {% if search.results == empty %}
+			<h3 class="note-msg">По запросу "<span class="color">{{search.query | escape}}</span>" ничего не найдено.</h3>
+		{% else %}
+          	{% paginate results by 21 %}
+          		{% for product in results %}
+                	{% include 'product_block' %}
+                {% endfor %}
+          	<div class="pagination">
+        		{{ paginate | default_pagination }}
+    		</div>
+          	{% endpaginate %}
+        {% endif %}
+      	<div class="clear"></div>
+    </div>
+</div>
+
+{% endif %}
+
+{% comment %}
+{% if search.performed? %}
+{% if search.results == empty %}
+	<h1 style="padding-left: 20px;">Поиск</h1>
+	<h2 class="note-msg">По запросу "<span class="color">{{search.query | escape}}</span>" ничего не найдено.</h2>
+{% else %}
+{% paginate results by 18 %}
+<h1 style="padding-left: 15px; margin-bottom: 15px;">Вы искали "<span class="color">{{search.query | escape}}</span>"</h1>
+<div style="padding: 0 20px 10px 20px;">
+<div class="pagination top">
+{% if paginate.parts.size > 1 %}
+  {% include 'paginate' %}
+{% endif %}
+</div>
+
+{% for product in results %}
+{% include 'product_block' %}
+{% endfor %}
+  <div class="clear"></div>
+</div>
+
+<div class="pagination bottom">
+{% if paginate.parts.size > 1 %}
+  {% include 'paginate' %}
+{% endif %}
+</div>
+{% endpaginate %}
+{% endif %}
+{% else %}
+<h1 style="padding-left: 20px;">Поиск</h1>
+<h2 class="note-msg">Введите ключевые слова для поиска.</h2>
+{% endif %}
+        {% endcomment %}
+

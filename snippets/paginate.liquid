@@ -1,0 +1,17 @@
+ <ul class="paginate">
+   <li>
+     <a href="{{ paginate.prev.url }}" class="prev {% if paginate.next %}{% else %}hidden{% endif %}">назад</a>
+   </li>
+  {% for part in paginate.parts %}
+    <li>
+  	{% if part.is_link %}
+  		{{ part.title | link_to: part.url }}
+  	{% else %}
+  		<span>{{ part.title }}</span>
+  	{% endif %}
+    </li>
+  {% endfor %}
+   <li>
+     <a href="{{ paginate.next.url }}" class="next {% if paginate.next %}{% else %}hidden{% endif %}">далее</a>
+   </li>
+ </ul>

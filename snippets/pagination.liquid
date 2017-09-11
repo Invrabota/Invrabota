@@ -1,0 +1,9 @@
+<a href="{{paginate.previous.url}}" class="prev {% if paginate.previous %}{% else %}v_hidden{% endif %}">&#8592; Предыдущая</a>
+{% for part in paginate.parts %}
+{% if part.is_link %}
+<a href="{{part.url}}" class="num rc10">{{part.title}}</a>
+{% else %}
+<a href="{{part.url}}" class="num active rc10">{{part.title}}</a>
+{% endif %}
+{% endfor %}
+<a href="{{paginate.next.url}}" class="next {% if paginate.next %}{% else %}v_hidden{% endif %}">Следующая &#8594;</a>

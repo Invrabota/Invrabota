@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang='ru' xml:lang='ru' xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<meta content='noindex, nofollow' name='robots'>
+<meta property="og:title" content="Работа для людей с инвалидностью в Воронежской области" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://invrabota.ru/" />
+<meta property="og:image" content="{{ 'loaded_logo.png' | asset_url }}" />
+<title>{% yield 'title' %}</title>
+  {% if settings.use_favicon %}
+   		<link rel="icon" href="{{ 'favicon.ico' | asset_url }}" type="image/x-icon" />
+  		<link rel="shortcut icon" href="{{ 'favicon.ico' | asset_url }}" type="image/x-icon" />
+  	{% else %}
+  		<link rel="icon" href="{{ 'favicon_default.ico' | asset_url }}" type="image/x-icon" />
+  		<link rel="shortcut icon" href="{{ 'favicon_default.ico' | asset_url }}" type="image/x-icon" />
+  	{% endif %}
+{{ 'checkout' | global_stylesheet_tag }}
+{% assign customer_checkout_css = 'custom_checkout.css' | asset_url %}
+{% if customer_checkout_css %}
+<link href='{{ customer_checkout_css }}' rel='stylesheet'>
+{% endif %}
+{{ 'checkout' | global_javascript_tag }}
+ <!--<link href="{{ 'styles.css' | asset_url }}" rel="stylesheet" type="text/css">-->
+  	<!--[if lt IE 9]>
+		<script type="text/javascript" src="{{ 'PIE_IE678.js' | asset_url }}"></script>
+	<![endif]-->
+  	<!--[if IE 9]>
+  		<script type="text/javascript" src="{{ 'PIE_IE9.js' | asset_url }}"></script>
+	<![endif]-->
+  <script type="text/javascript" src="{{ 'theme_checkout.js' | asset_url }}"></script>
+    <link href="{{ 'nivo-light.css' | asset_url }}" rel="stylesheet" type="text/css">
+  	<link href="{{ 'nivo-slider.css' | asset_url }}" rel="stylesheet" type="text/css">
+    <link href="{{ 'jquery.fancybox.css' | asset_url }}" rel="stylesheet" type="text/css">
+    <link href="{{ 'reviews.css' | asset_url }}" rel="stylesheet" type="text/css">
+    <link href="{{ 'styles.css' | asset_url }}" rel="stylesheet" type="text/css">
+  
+  <meta name="google-site-verification" content="pKoz3wC2dVG996-2bZpDgFEdBy6fi7RV8v0TV2EMb2Q" />
+  
+</head>
+<body>
+<div class="wrapper-checkout">
+	<div class="header-checkout">
+
+      {% if settings.show_shop_name %}
+      	<a class="account-title" href="/" title="{{ account.title }}">{{ account.title }}</a>
+      {% else %}
+        {% if settings.use_logo_image %}
+           <a class="logo" href="/"><img src="{{ 'loaded_logo.png' | asset_url }}" title=""></a>
+        {% endif %}
+      {% endif %}
+      <div style="position: absolute;top: 13px;left: 359px;width:200px;">{{ blocks.vremya-raboty.content | editable }}</div>
+         <a class="cart" href="/cart_items">
+            <div class="title">Список</div>
+            <div class="text nb">В списке <span id="cart_items">{{cart.items_count}}</span>&nbsp;<span id="word_product">соискателей</span>
+             
+            </div>
+        </a>
+
+      	{% if settings.show_phone %}
+          <div class="phone" itemscope itemtype="http://schema.org/Store">
+      <!--      <span itemprop="telephone">{{ account.phone | editable }}</span> -->
+            <span itemprop="telephone">+7(473)2660601, 2418072<br>mail@invrabota.ru</span>
+            <span itemprop="name" class="hidden">{{ account.title | editable }}</span>
+            <span class="hidden" itemprop="address">{{account.url}}</span>
+              <a target="_blank" href="https://vk.com/club96788818"><img src="https://static-internal.insales.ru/files/1/5094/3314662/original/information_items_244.png"></a>
+          </div>
+        {% endif %}
+      <div class="stat kabinet" style='display:block;'>
+        Общее количество соискателей в базе - <span>{{collections.all.products_count}}</span><br>
+        Активное количество соискателей в базе - <span id="count-prod"></span>
+
+      </div>
+
+      
+      <div class="hidden-block count-product" style='display:none;'>
+        
+       {% for product in collections.tehnika.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+
+          {% for product in collections.bezopasnost.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+        
+          {% for product in collections.buhgalteriya-upravlencheskiy-uchet-finansy-predpriyatiya.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+        
+          {% for product in collections.gosudarstvennaya-sluzhba-nekommercheskie-organizatsii.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+          {% for product in collections.domashniy-personal.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+          {% for product in collections.installyatsiya-i-servis.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+          {% for product in collections.informatsionnye-tehnologii-internet-telekom.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+          {% for product in collections.iskusstvo-razvlecheniya-mass-media.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+          {% for product in collections.konsultirovanie-marketing-reklama-pr.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+          {% for product in collections.proizvodstvo.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+          {% for product in collections.salony-krasoty-parikmaherskie-atelie-klining.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+          {% for product in collections.turizm-gostinitsy-restorany.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+             {% for product in collections.transport-logistika-kuriery.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+        
+             {% for product in collections.yuristy-psihologi-perevodchiki.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+             {% for product in collections.stroitelstvo-rasznorabochie.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+             {% for product in collections.obrazovanie.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+        
+                     {% for product in collections.meditsina-farmatsevtika.products %}
+        <span>{{ product.title }}</span>
+  {% endfor %}
+        
+        
+        
+        
+    
+         </div>
+
+
+           
+        <div class="menu">
+            <div class="main">
+              	<ul class="main-menu">
+                  {% for link in linklists.main-menu.links %}
+                    {% assign col_link = false %}
+                  	{% for col in collections.flatten %}{% if link.url == col.url and col.subcollections.size > 0 %}
+                  		{% assign col_link = true %}
+                      	<li class="main-menu-item">
+                          <a href="{{ link.url }}">{{ link.title }}<span class="arrow-submenu"></span></a>
+                          <ul class="main-submenu">
+                            {% for subcol in col.subcollections %}
+                            <li class="{% if forloop.last %}last{% endif %}"><a href="{{ subcol.url }}">{{ subcol.title | editable }}</a></li>
+                            {% endfor %}
+                          </ul>
+                    	</li>
+                  	{% endif %}{% endfor %}
+                    {% unless col_link %}<li class="main-menu-item"><a href="{{ link.url }}">{{ link.title }}</a></li>{% endunless %}
+                  {% endfor %}
+              	</ul>
+              	<div class="menu-decor-wrap">
+                    <div class="menu-decor"></div>
+                </div>
+            </div>
+            <div class="search">
+              	<form action="/search" method="get">
+                  	<input id="search_submit" type="submit" class="submit" value="">
+                	<input id="search" type="text" class="query" name="q" value="Найти...">
+                </form>
+            </div>
+          
+
+          
+        </div>
+	</div>
+<div class="aside">
+        <div class="categories">
+            <div class="title">Каталог</div>
+            <ul>
+              {% for col in collections %}
+              	<li>
+                  <a class="{% if col.handle == collection.handle %}active{% endif %}" href="{{ col.url }}"><div class="marker {% if col.current? %}active{% endif %}"></div>{{ col.title | editable }}</a>
+                    <ul class="subcollection {% if col.current? and col.subcollections.size > 0 %}expand{% endif %}">
+                      {% for sub1 in col.subcollections %}
+                        <li>
+                            <a class="{% if sub1.handle == collection.handle %}active{% endif %}" href="{{ sub1.url }}">{{ sub1.title | editable }}</a>
+                            <ul class="subcollection {% if sub1.current? and sub1.subcollections.size > 0 %}expand{% endif %}">
+                               {% for sub2 in sub1.subcollections %}
+                                <li>
+                                  <a class="{% if sub2.handle == collection.handle %}active{% endif %}" href="{{ sub2.url }}">{{ sub2.title | editable }}</a>
+                                </li>
+                              	{% endfor %}
+                            </ul>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                </li>
+              {% endfor %}
+            </ul>
+        </div>
+  </div>
+<div class='content wrapper body fc'>
+<h1 class="blog-title">Личный кабинет</h1>
+{% if client %}
+ {% if linklists.account-menu %}
+<div class='userbar fc'></div>
+<div class='links fl'>
+{% for link in linklists.account-menu %}
+<a href='/'>
+<span class='b'>Вернуться в каталог</span>
+</a>
+|
+{% endfor %}
+</div>
+<div class='profile fr'>
+{{ client.full_name }}
+<b></b>
+(<a href='/client_account/exit'>Выход</a>)
+</div>
+ {% else %}
+<div class='userbar fc'>
+<div class='links fl'><a href='/'>
+<span class='b'>Вернуться в каталог</span>
+</a>|<a href='/client_account/contacts'>
+<span>Контактные данные</span>
+</a>|<a href='/client_account/addresses'>
+<span>Адрес доставки</span>
+</a>|<a href='/client_account/orders'>
+<span class='b'>Заказы и скидки</span>
+</a>|<a href='/client_account/feedback'>
+<span>Обратная связь</span>
+</a></div>
+<div class='profile fr'>
+{{ client.full_name }}
+<b></b>
+(<a href='/client_account/exit'>Выход</a>)
+</div>
+</div>
+ {% endif %}
+{% endif %}
+  <div style="color: #c51f1f;"><strong>Контактные данные соискателей придут на указанный вами почтовый адрес, после обработки запроса администратором системы.</strong></div>
+<div class='page-title'>Оформление запроса</div>
+{% yield 'flash_messages' %}
+<div id='top_info'>{% yield 'top_info' %}</div>
+{% yield %}
+{% yield 'sidebar' %}
+</div>
+<script>
+   $('form[action="/client_account/feedback/auth_create"]').submit(function () {
+    $('#feedback_content', this).text(function(item, value) {
+        return value + '\n\n' + 'От {{client.full_name}}\nEmail: {{client.email}}\nТелефон: {{client.phone}}'                             
+       });
+    }); 
+  </script>
+  
+  
+  
+  
+  
+<div class="clear"></div>  
+
+  
+  <!--
+	<div class="footer-checkout">
+        <ul>
+          	{% for link in linklists.footer.links %}
+          		<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>-->
+    <div class="copyright">Copyright © {{ 'now' | date: "%Y" }} <a href="/">{{ account.title | editable  }}</a></div>
+  </div>
+  
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter45152265 = new Ya.Metrika({
+                    id:45152265,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/45152265" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101878425-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+  $(function()
+    {$("#client_password").prop("placeholder", "Придумайте пароль");
+     $("#client_password_confirmation").prop("placeholder", "Повторите пароль");
+     $("#registered_client > h3").text("Личный кабинет работодателя (участника СБВИ)");
+    })
+</script>
+  
+</body>
+</html>

@@ -1,0 +1,26 @@
+<div class="product-block">
+	<a class="img-wrapper" href="{{ product.url }}"
+  style="display: block; border: 1px solid #E0E0E0; padding: 3px; border-radius: 3px; width: 160px; height: 160px;background: url({{ product.first_image.compact_url }}) center center no-repeat #FFF;">
+      <!--<img src="{{ product.images.first.compact_url }}" title="">-->
+  </a>
+    <a class="title" href="{{ product.url }}">{{ product.title | editable | truncate: 50 }}</a>
+  <div class="descr">
+    {% if product.available == false %}
+      <span class="not-available">Нет в наличии.</span><br>
+    {% endif %}
+    {{ product.short_description | editable | strip_html | truncate: 100 }}
+  </div>
+
+  <div class="price">{{ product.price | money }}<br/>
+  {% if product.old_price %}<del class="old-price">{{product.old_price | money}}</del>{% endif %}</div>
+  	{% if product.variants.size > 1 %}
+  	  <form action="{{ product.url }}" method="post">
+       <input type="submit" class="openproduct" value="Предложить работу"> 
+      </form>
+  	{% else %}
+      <form action="/cart_items" method="post">
+        <input type="hidden" name="variant_id" value="{{ product.variants.first.id }}">
+        <input type="submit" {% if product.available or settings.order_button %}class="addtocart"{% else %}title="Нет в наличии" disabled="disabled" class="addtocart disabled"{% endif %} value="{% if product.available == false and settings.order_button %}Под заказ{% else %}Предложить работу{% endif %}">
+      </form>
+  	{% endif %}
+</div>

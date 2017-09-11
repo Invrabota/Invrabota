@@ -1,0 +1,156 @@
+{% include 'breadcrumbs' %}
+<div class="category">
+  		<h1 class="category-title">{{ collection.title | editable }}</h1>
+        <div class="wrapper">
+  			<form id="filter_form" method="get" action="{{collection.url}}">
+        	<div class="filter">
+            	<div class="sortby">
+                	<label for="sort_by">Сортировать по:</label>
+                  <!--
+                    <select id="sort_by">
+                    	<option value="product name">Названию</option>
+                    </select>-->
+
+                    {% if language.not_default? %} <input type="hidden" name="lang" value="{{ language.locale }}"> {% endif %}
+
+                      <select id="sort_by" name="order"
+                   style="display: none0;" onchange="document.forms.filter_form.submit();">
+                        <option value=""></option>
+                        {{ "price"  | select_option: order, "возрастанию цены" }}
+                        {{ "descending_price"  | select_option: order, "убыванию цены" }}
+                        {{ "title"  | select_option: order, "названию А-Я" }}
+                        {{ "descending_title"  | select_option: order, "названию Я-А" }}
+                      </select>
+                </div>
+
+                <div class="results">
+                  <label for="results">Товаров на странице:</label>
+
+                    <select id="results" name="page_size" onchange="$('#filter_form').submit();">
+
+                        {{ "24" | select_option: page_size, "24" }}
+                        {{ "44" | select_option: page_size, "44" }}
+                        {{ "100" | select_option: page_size, "100" }}
+                    </select>
+
+                </div>
+            </div>
+             <div class="property-wrapper" >
+                    {% for property in collection.properties %}
+                          <ul class="property-list" >{{ property.name }} <i class="fa fa-chevron-down" style="color:#5CBB1C"></i><div class="item-wrapper" >
+                            {% for characteristic in property.characteristics %}
+                               <li class="property-item"><input class="checkator" {% if characteristic.products_count == 0 %}disabled="disabled"{% endif %} id="char{{ characteristic.id }}" type="checkbox" name="characteristics[]" value="{{ characteristic.id }}" {% if characteristic.current? %}checked{% endif %}><label for="char{{ characteristic.id }}" {% if characteristic.current? %}{% assign set = 1 %}style="font-weigth:800;"{% endif %}class="tag">{{characteristic.name}} ({{characteristic.products_count}})</label></li>
+                              {% endfor %}</div>
+                          
+              </ul>
+                    {% endfor%}
+              </div><br/><br/>
+              {% if collection.products.size > 0 %} <button style="padding: 10px;margin-left: 5px;color:#fff;background: #5CBB1C;border: 1px solid #5CBB1C;" onclick="$('#filter_form').submit();">Применить</button> {% endif %}{% if set == 1 %}<a href="{{collection.url}}" style="padding: 10px;margin-left: 5px;color:#fff;background: #5CBB1C;border: 1px solid #5CBB1C;text-decoration:none;">Сбросить</a>{% endif %}
+			</form>
+          {% if collection.products.size > 0 %}
+
+          	{% paginate products by 24 %}
+          {% if paginate.parts.size > 1 %}
+          <div class="pagination" style="clear: none;">{{ paginate | default_pagination }}</div>
+          {% endif %}
+          		{% if paginate.current_page == 1 %}
+          			{{ collection.description | editable }}
+
+                {% endif %}
+          		{% for product in products %}
+                	{% include 'product_block' %}
+                {% endfor %}
+          {% if paginate.parts.size > 1 %} <div class="pagination">{{ paginate | default_pagination }}</div>                                       {% endif %}
+          	{% endpaginate %}
+
+          {% else %}
+          	{% if collection.subcollections.size > 0 %}
+
+          			{% for subcol in collection.subcollections %}
+                		{% include 'collection_block' %}
+                	{% endfor %}
+
+          	{% else %}
+				<span>В категории нет товаров</span>
+          	{% endif %}
+          {% endif %}
+	</div>
+</div>
+
+{% if collection.seo_description %}
+  <div class="editor-content seo-content clear style-block" style="background: {{settings.bg_color6}}; padding-bottom: 3px;">
+    {{ collection.seo_description | editable }}
+  </div>
+{% endif %}
+<script>
+ $(function(){
+  $(".property-list").click(function(){   
+   var offset = $(this).offset()
+   $(this).find(".fa-chevron-down").removeClass("fa-chevron-down").addClass("fa-chevron-up");
+     $(".item-wrapper").css("top", offset.top + 35 )
+     $(".item-wrapper").css("left", offset.left  ) 
+      if (  $(this).find(".property-item").is(":hidden") ) {
+        if ( $(".item-wrapper").is(":visible") ) {
+           $(".item-wrapper").hide();
+        }
+        if ( $(this).hasClass("active") ) {
+           $(this).find(".property-item").hide();
+           $(this).find(".item-wrapper").hide();
+           $(this).removeClass("active");
+           $(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down"); 
+        }
+        else { 
+          $(this).find(".property-item").show();
+          $(this).find(".item-wrapper").show(); 
+          $(this).addClass("active")}
+      }
+    })
+     $(".property-item").click(function(){
+       $(this).parents(".item-wrapper").show();
+     })
+     $(".tag").click(function(){
+       $(this).parents(".item-wrapper").show();
+     })
+     $(document).mouseup(function (e) {
+    var container = $(".item-wrapper");
+    var container1 = $(".property-item");
+    var container2 = $(".checkator");
+    var container3 = $(".tag");   
+    if (container.has(e.target).length === 0 || container1.has(e.target).length === 0 || container2.has(e.target).length === 0 || container3.has(e.target).length === 0 ){
+        container.hide();
+      if ( container.is(":hidden") ) {
+       $(".fa-chevron-up").removeClass("fa-chevron-up").addClass("fa-chevron-down"); }
+    }
+});
+   
+ 
+   
+})
+  $(document).ready(function(){
+  $('.checkator').iCheck({
+    checkboxClass: 'icheckbox_square-green',
+  });
+    
+    
+   setTimeout(function(){
+     
+       $(".icheckbox_square-green").each(function(){
+  
+  if ( $(this).hasClass("checked") ) { 
+    
+    $(this).parents(".property-list").css("border","2px solid green"); 
+    $(this).parents(".property-list").find(".property-item").css("color","black")
+  
+  }
+  
+  
+  
+  }) 
+   
+   
+   }, 1000) 
+
+    
+    
+});
+</script>

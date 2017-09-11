@@ -1,0 +1,35 @@
+{% include 'breadcrumbs' %}
+<div class="blog">
+	<h1 class="blog-title">{{ blog.title | editable }}</h1>
+    <div class="wrapper">
+
+    {% paginate articles by 4 %}
+    	{% for article in articles %}
+        	<div class="article">
+                <a href="{{ article.url }}" class="title">{{ article.title | editable }}</a>
+                <div class="created">
+                   Опубликовано {{ article.created_at | date: "%d.%m.%Y" }}{% if article.author %}, автор {{ article.author | editable }}{% endif %}
+                </div>
+                <table style="width: 100%;"><tr>
+                    {% unless article.image.compact_url contains 'no_image' %}
+                        <td><a href="{{ article.url }}"><img src="{{ article.image.compact_url }}"></a></td>
+                    {% endunless %}
+                    <td>
+                        <div class="text">{{ article.preview | editable }}</div>
+                        <a class="readmore" href="{{ article.url }}#cut">Подробнее...</a>
+                        {% if blog.comments_enabled? %}
+                        	<a href="{{article.url}}#comments" class="comments">комментарии ({{ article.comments_count }})</a>
+                        {% endif %}
+                    </td>
+                </tr></table>
+            </div>
+        {% endfor %}
+
+        {% if paginate.pages > 1 %}
+    		<div class="pagination">
+        		{{ paginate | default_pagination }}
+    		</div>
+    	{% endif %}
+	{% endpaginate %}
+	</div>
+</div>

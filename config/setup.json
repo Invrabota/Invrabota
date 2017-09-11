@@ -1,0 +1,53 @@
+{"collections":
+ {"sportivnaya-obuv":"Спортивная обувь",
+  "skeytbordy":"Скейтборды",
+  "snoubordy":"Сноуборды",
+  "nastolnyy-tennis":"Настольный теннис",
+  "plavanie":"Плавание",
+  "popular":"популярные товары",
+  "frontpage":"Товары на главной"
+ },
+ 
+ "block_lists":
+ {
+  "left":"Блоки в категориях слева",
+  "news":"Новости"
+ },
+ 
+  "blocks":
+  {
+  "Банер":"Акции и распродажи",
+   "Tovar-nedeli":"Товар недели",
+   "условия-доставки":"Условия доставки",
+    "vremya-raboty":"Время работы"
+ },
+ 
+ "blogs": { "blog":"Блог", "blog-2":"Новости" }, 
+            
+ "menus":
+ {"main-menu":"Верхнее меню",
+  "footer-a":"Информация",
+  "footer-b":"Помощь",
+  "footer-c":"Мой аккаунт"
+ }
+,
+ "menu_items": 
+ {
+    "main-menu" : {
+       "Условия доставки": "/page/delivery ",
+       "Личный кабинет": "/client_account/login",
+       "Новости": "/blogs/blog ",
+       "Обратная связь": "/page/feedback "
+      
+   },
+	"footer" : {
+        "Главная страница": "/",
+        "Регистрация/Вход": "/client_account/login ",
+        "Доставка": "/page/deliver",
+		"Новости": "/blogs/blog ",
+        "Обратная связь": "/page/feedback"
+   }
+
+  }
+   
+} 
