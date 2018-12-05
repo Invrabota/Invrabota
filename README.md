@@ -6,7 +6,7 @@
 Для воссоздания функционала сайта:
 1. Зарегистрируйтесь на платформе InSales по ссылке: https://www.insales.ru/
 2. В личном кабинете выберите пункт меню «Дизайн». В появившемся окне выберите опцию «Загрузить тему из файла».
-Файл темы доступен по ссылке: https://github.com/Invrabota/Invrabota/blob/master/myshop-4206-38_theme.zip
+Файл темы доступен по ссылке: https://github.com/Invrabota/Invrabota/blob/master//blob/master/myshop-4206-38_theme.zip
 3. После установки нажмите кнопку «Предпросмотр», чтобы увидеть установленную вами тему.
 Инструкция по настройке сайта с пояснительными изображениями:
-https://github.com/Invrabota/Invrabota/blob/master/instrukciya-po-ustanovke-temy.docx
+https://github.com/Invrabota/invrabota/blob/master/blob/master/instrukciya-po-ustanovke-temy.docx
